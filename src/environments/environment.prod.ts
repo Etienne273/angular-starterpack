@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  serverUrl: 'https://node-mongodd-server.herokuapp.com/api/v1'
+  serverUrl: 'https://mongo-recepten.herokuapp.com/'
 };
