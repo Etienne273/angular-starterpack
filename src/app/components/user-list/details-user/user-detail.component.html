@@ -1,0 +1,16 @@
+<div class="col-md-offset-3 col-md-6" *ngIf="user">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div>
+        <button type="button" class="btn btn-default" (click)="goBack()">Back</button>
+      </div>
+    </div>
+    <div class="panel-body">
+      <form name="UpdateUserForm">
+        <img src="{{user.imagePath}}" alt="" class="img-responsive"/>
+        <hr/>
+        <h2>{{user.name}}</h2>
+      </form>
+    </div>
+  </div>
+</div>

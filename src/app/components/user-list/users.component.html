@@ -1,0 +1,46 @@
+<div class="users-container">
+<div class="row form-group">
+  <div class="col-md-9">
+    <h4>All Chefs</h4>
+  </div>
+  <div class="col-md-3 text-right">
+    <button class="btn btn-success" routerLink="/add-user">Add New Chef
+    </button>
+  </div>
+</div>
+
+
+
+
+<div class="table-responsive">
+  <table class="table table-bordered table-hover">
+    <tr class="default">
+      <th rowspan="2" class="text-center" style="vertical-align: middle">Photo
+      </th>
+      <th rowspan="2" class="text-center" style="vertical-align: middle">
+       Name
+      </th>
+      <th colspan="3" class="text-center">Actions</th>
+    </tr>
+    <tr class="default">
+      <th class="text-center">View</th>
+      <th class="text-center">Update</th>
+      <th class="text-center">Delete</th>
+    </tr>
+    <tr *ngFor="let user of users">
+      <td  (click)="viewDetail(user._id)"><img src="{{user.imagePath}}" alt="" class="img-responsive" style="max-width: 200px;"/></td>
+      <td (click)="viewDetail(user._id)">{{user.name}}</td>
+
+      <td class="text-center">
+        <button type="button" data-toggle="tooltip" data-placement="top" class="btn btn-default btn-block btn-xs" (click)="viewDetail(user._id)"><i class="fa fa-eye" aria-hidden="true"></i></button>
+      </td>
+      <td class="text-center">
+        <button type="button" class="btn btn-block btn-default btn-xs" (click)="update(user._id)"><i class="fa fa-edit" aria-hidden="true"></i></button>
+      </td>
+      <td class="text-center">
+        <button type="button" (click)="remove(user._id)" class="btn btn-danger btn-block btn-xs"><i class="fa fa-close" aria-hidden="true"></i></button>
+      </td>
+    </tr>
+  </table>
+</div>
+</div>

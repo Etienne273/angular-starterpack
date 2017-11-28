@@ -1,0 +1,48 @@
+<div class="col-md-offset-3 col-md-6" *ngIf="recipe">
+  <div class="panel panel-default">
+    <div class="row" style="margin: 0">
+      <div class="col-md-12 text-center form-header">
+        <h4>Add New Recipe</h4>
+      </div>
+    </div>
+    <div class="panel-body">
+      <form [formGroup]="recipeAddForm"
+            (ngSubmit)="add()"
+            novalidate>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input id="name"
+                 value="{{recipe.name}}"
+                 class="form-control"
+                 formControlName="name">
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input id="description"
+                 value="{{recipe.description}}"
+                 class="form-control"
+                 formControlName="description">
+        </div>
+        <div class="form-group">
+          <label for="imagePath">Image Path</label>
+          <input id="imagePath"
+                 value="{{recipe.imagePath}}"
+                 class="form-control"
+                 formControlName="imagePath">
+        </div>
+        <div class="form-group">
+          <label for="ingredients">Ingredients</label>
+          <input id="ingredients"
+                 value="{{recipe.ingredients}}"
+                 class="form-control"
+                 formControlName="ingredients">
+        </div>
+        <div>
+          <button class="btn btn-success"
+                  [disabled]="!recipeAddForm.valid">Add Recipe</button>
+          <button type="button" class="btn btn-default" (click)="goBack()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
