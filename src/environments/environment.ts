@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  serverUrl: 'https://angular-server-recept.herokuapp.com/api/v1'
+  serverUrl: ' '
 };

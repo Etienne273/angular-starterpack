@@ -1,45 +1,89 @@
-import { Injectable } from '@angular/core';
-import { Http, Headers, URLSearchParams } from '@angular/http';
-import { environment } from '../../environments/environment';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/toPromise';
-import { Observable } from 'rxjs/Observable';
-import { User } from '../models/user.model';
+import {User} from '../models/user.model';
+import {Headers, Http} from '@angular/http';
+import {environment} from 'environments/environment';
 
 @Injectable()
 export class UserService {
 
-  private headers = new Headers({ 'Content-Type': 'application/json' });
-  private serverUrl = environment.serverUrl + '/users'; // URL to web api
-  private users: User[] = [];
+  private host = window.location.hostname;
+  private headers = new Headers({'Content-Type': 'application/json'});
+  private usersURL = environment.serverUrl + '/users';
 
-  //
-  //
-  //
-  constructor(private http: Http) { }
+  constructor(private http: Http) {
+  };
 
-  //
-  //
-  //
-  public getUsers(): Promise<User[]> {
-    console.log('items ophalen van server');
-    return this.http.get(this.serverUrl, { headers: this.headers })
+  /**
+   * Return all users
+   * @returns {Promise<User[]>}
+   */
+  getUsers(): Promise<User[]> {
+    return this.http.get(this.usersURL)
       .toPromise()
       .then(response => {
-        console.dir(response.json());
         return response.json() as User[];
       })
-      .catch(error => {
-        return this.handleError(error);
-      });
+      .catch(this.handleError);
   }
 
-  //
-  //
-  //
+  /**
+   * Returns user based on id
+   * @param id:string
+   * @returns {Promise<User>}
+   */
+  getUser(_id: string): Promise<User> {
+    const url = `${this.usersURL}/${_id}`;
+    return this.http.get(url)
+      .toPromise()
+      .then(response => response.json() as User)
+      .catch(this.handleError);
+  }
+
+  /**
+   * Adds new user
+   * @param user:User
+   * @returns {Promise<User>}
+   */
+  add(user: User): Promise<User> {
+    return this.http.post(this.usersURL, JSON.stringify(user), {headers: this.headers})
+      .toPromise()
+      .then(response => response.json() as User)
+      .catch(this.handleError);
+  }
+
+  /**
+   * Updates user that matches to id
+   * @param user:User
+   * @returns {Promise<User>}
+   */
+  update(user: User): Promise<User> {
+    console.log(user);
+    return this.http.put(this.usersURL + '/' + user._id, JSON.stringify(user), {headers: this.headers})
+      .toPromise()
+      .then(response => response.json() as User)
+      .catch(this.handleError);
+  }
+
+  /**
+   * Removes user
+   * @param id:string
+   * @returns {Promise<User>}
+   */
+  remove(id: string): Promise<any>{
+    return this.http.delete(`${this.usersURL}/${id}`)
+      .toPromise()
+      .then(response => console.log(response))
+      .catch(this.handleError);
+  }
+
+  /**
+   * Handles error thrown during HTTP call
+   * @param error:any
+   * @returns {Promise<never>}
+   */
   private handleError(error: any): Promise<any> {
-    console.log('handleError');
+    console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
   }
-
 }

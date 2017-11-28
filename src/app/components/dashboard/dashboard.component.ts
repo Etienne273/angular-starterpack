@@ -1,28 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { UserService } from '../../services/user.service';
-import { User } from '../../models/user.model';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from '../../services/user.service';
+import {RecipeService} from '../../services/recipe.service';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html'
+  selector: 'dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['../../app.component.css']
 })
-export class DashboardComponent implements OnInit {
 
-  title = 'Dashboard';
-  users: User[];
+export class DashboardComponent implements OnInit{
+  totalUsers: number;
+  totalRecipes: number;
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private userService: UserService
-  ) { }
+  constructor(private userService: UserService, private recipeService: RecipeService){};
 
-  ngOnInit(): void {
+  ngOnInit():void{
     this.userService.getUsers()
-      .then(users => this.users = users)
-      .catch(error => console.log(error));
+      .then(response => this.totalUsers = response.length);
+    this.recipeService.getRecipes()
+      .then(response => this.totalRecipes = response.length);
   }
-
 
 }

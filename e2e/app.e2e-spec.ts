@@ -1,14 +1,14 @@
-import { AppPage } from './app.po';
+import { HelloWorldPage } from './app.po';
 
-describe('angular2-autograding App', () => {
-  let page: AppPage;
+describe('hello-world App', () => {
+  let page: HelloWorldPage;
 
   beforeEach(() => {
-    page = new AppPage();
+    page = new HelloWorldPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
+    expect(page.getParagraphText()).toEqual('app works!');
   });
 });
